@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes">
+    <link rel="stylesheet" href="{% static 'main_page.css' %}">
+    <link href="{% static 'favicon.png' %}" rel="icon" type="image/png"/>
+</head>
+
+<body>
+<div id="wrapper">
+    <font face="Arial, sans-serif">
+        <header id="header">
+            <div id="header__body">
+                <textarea id="message_text" placeholder="Введите текст для поиска..."></textarea>
+                <input id="message_button" type="image" src="{% static 'Search_find.png' %}">
+            </div>
+        </header>
+        <div id="content" style="background-color:#FFF;"></div>
+    </font>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+    message_button.onclick = async function() {
+        if (message_text.value.replace(/\s/g, '') != "") {
+
+            content.innerHTML = '';
+            let p_waiting = document.createElement('p');
+            p_waiting.innerHTML = 'Выполняется поиск...';
+            content.appendChild(p_waiting);
+
+            $.ajax({
+                url: '/search',
+                method: 'get',
+                dataType: 'html',
+                data: {
+                    text: message_text.value
+                },
+                success: function(data) {
+
+                    content.innerHTML = '';
+                    json_data = JSON.parse(data);
+                    json_data.sort();
+                    let h_count = document.createElement('h3');
+                    h_count.innerHTML = 'Найдено чертежей: ' + json_data.length;
+                    content.appendChild(h_count);
+
+
+                    for (let i = 0; i < json_data.length; i++) {
+                        let p_drawing = document.createElement('p');
+                        p_drawing.innerHTML = json_data[i];
+                        content.appendChild(p_drawing);
+                    }
+                }
+            });
+        }
+    };
+});
+
+</script>
+</body>
+</html>
