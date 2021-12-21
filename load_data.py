@@ -50,7 +50,6 @@ def GetFileList(folder):
 
 GetFileList("\\\\fileserver.souz.tld\\mediaw\\Детали\\КБ\\Цех №1")
 GetFileList("\\\\fileserver.souz.tld\\mediaw\\Детали\\КБ\\Цех №2")
-# file_list = GetFileList("C:\\Users\\user\\Desktop\\МШК-01(04)УПК\\Траверсы")
 
 print('очистка базы')
 
