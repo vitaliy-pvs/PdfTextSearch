@@ -1,3 +1,4 @@
 pdfminer==20191125
 pycryptodome==3.11.0
 Django==3.2.8
+XlsxWriter==3.0.2
